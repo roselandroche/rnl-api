@@ -5,19 +5,16 @@ const requestTime = require("./middleware/requestTime");
 
 const server = express(); // creates the server
 
-server.use((err, req, res, next) => {
-  console.log(`Err:`, err);
-  res.status(500).json({
-    message: `Something went wrong`,
-  });
-});
-
 server.use(myLogger);
 server.use(requestTime);
 
 // handle requests to the root of the api, the / route
 server.get("/", (req, res) => {
-  res.send(res.body);
+  if (res.status !== 400) {
+    res.send(res.body);
+  } else {
+    res.send(res.status);
+  }
 });
 
 // watch for connections on port 8000

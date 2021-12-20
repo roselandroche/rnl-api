@@ -1,6 +1,11 @@
 var requestTime = function (req, res, next) {
   req.requestTime = Date.now();
-  res.body = "surprise";
+  let bday = req.query.bday;
+  if (bday === "true") {
+    res.body = "surprise";
+  } else {
+    res.body = "no dice";
+  }
   next();
 };
 
